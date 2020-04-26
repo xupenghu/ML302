@@ -1,0 +1,148 @@
+{
+    "NVItem": [
+        {
+            "Continue": 0,
+            "ID": "0xffffffff",
+            "Replace": 0,
+            "backup": 1,
+            "name": "Calibration",
+            "use": 1
+        },
+        {
+            "Continue": 1,
+            "ID": "0x26d",
+            "Replace": 0,
+            "backup": 1,
+            "name": "GSM Calibration",
+            "use": 1
+        },
+        {
+            "Continue": 0,
+            "ID": "0x26e",
+            "Replace": 0,
+            "backup": 1,
+            "name": "LTE Calibration",
+            "use": 1
+        },
+        {
+            "Continue": 0,
+            "ID": "0xffffffff",
+            "Replace": 0,
+            "backup": 1,
+            "name": "IMEI",
+            "use": 1
+        }
+    ],
+    "dwFlashType": 1,
+    "dwIsNvBackup": 1,
+    "dwIsOmaDm": 1,
+    "dwIsPreload": 1,
+    "dwMode": 0,
+    "dwOmaDmProductFlag": 0,
+    "pacFiles": [
+        {
+            "cfgType": "PLAIN_FILE",
+            "defaultCheck": 1,
+            "description": "HOST_FDL",
+            "dwAddress": "0x810000",
+            "dwCanOmitFlag": 0,
+            "filePath": "prebuilt/pacfile/fdl1.sign.img",
+            "fixedSize": "0x8000",
+            "forceCheck": 1,
+            "szFileID": "HOST_FDL",
+            "szFileName": "fdl1.sign.img",
+            "type": "HOST_FDL"
+        },
+        {
+            "cfgType": "PLAIN_FILE",
+            "defaultCheck": 1,
+            "description": "FDL2",
+            "dwAddress": "0x818000",
+            "dwCanOmitFlag": 0,
+            "filePath": "prebuilt/pacfile/fdl2.sign.img",
+            "fixedSize": "0x10000",
+            "forceCheck": 1,
+            "szFileID": "FDL2",
+            "szFileName": "fdl2.sign.img",
+            "type": "FDL2"
+        },
+        {
+            "cfgType": "EMPTY_FILE",
+            "defaultCheck": 1,
+            "description": "Producting phases information section",
+            "dwAddress": "0xfe000002",
+            "dwCanOmitFlag": 1,
+            "fixedSize": "0x100",
+            "forceCheck": 0,
+            "szFileID": "PhaseCheck",
+            "type": "CODE"
+        },
+        {
+            "cfgType": "PLAIN_FILE",
+            "defaultCheck": 1,
+            "description": "BOOTLOADER",
+            "dwAddress": "0x60000000",
+            "dwCanOmitFlag": 0,
+            "filePath": "prebuilt/pacfile/boot.sign.img",
+            "fixedSize": "0x10000",
+            "forceCheck": 0,
+            "szFileID": "BOOTLOADER",
+            "szFileName": "boot.sign.img",
+            "type": "CODE"
+        },
+        {
+            "cfgType": "PLAIN_FILE",
+            "defaultCheck": 1,
+            "description": "AP",
+            "dwAddress": "0x60010000",
+            "dwCanOmitFlag": 0,
+            "filePath": "prebuilt/pacfile/8910DM_ML302.sign.img",
+            "fixedSize": "0x330000",
+            "forceCheck": 0,
+            "szFileID": "AP",
+            "szFileName": "8910DM_ML302.sign.img",
+            "type": "CODE"
+        },
+        {
+            "cfgType": "PLAIN_FILE",
+            "defaultCheck": 1,
+            "description": "PS",
+            "dwAddress": "0x604a0000",
+            "dwCanOmitFlag": 0,
+            "filePath": "prebuilt/pacfile/cat1_UIS8910DM_L04_SingleSim.img",
+            "fixedSize": "0x340000",
+            "forceCheck": 0,
+            "szFileID": "PS",
+            "szFileName": "cat1_UIS8910DM_L04_SingleSim.img",
+            "type": "CODE"
+        },
+        {
+            "cfgType": "EMPTY_FILE",
+            "defaultCheck": 1,
+            "description": "Erase NV",
+            "dwAddress": "0xfe000001",
+            "dwCanOmitFlag": 1,
+            "fixedSize": "0x0",
+            "forceCheck": 0,
+            "szFileID": "FLASH",
+            "type": "EraseFlash"
+        },
+        {
+            "cfgType": "PLAIN_FILE",
+            "defaultCheck": 1,
+            "description": "NV",
+            "dwAddress": "0xfe000003",
+            "dwCanOmitFlag": 1,
+            "filePath": "prebuilt/pacfile/cat1_UIS8910DM_L04_SingleSim_nvitem.bin",
+            "fixedSize": "0x20000",
+            "forceCheck": 0,
+            "szFileID": "NV",
+            "szFileName": "cat1_UIS8910DM_L04_SingleSim_nvitem.bin",
+            "type": "NV"
+        }
+    ],
+    "szPrdAlias": "8910DM_ML302",
+    "szPrdName": "UIX8910_MODEM",
+    "szPrdVersion": "8910 MODULE",
+    "szVersion": "BP_R1.0.0"
+}
