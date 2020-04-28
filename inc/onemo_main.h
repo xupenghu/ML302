@@ -49,8 +49,6 @@ void onemo_test_single_time_alarm(unsigned char **cmd,int len);
 void onemo_test_set_repeate_alarm(unsigned char **cmd,int len);
 void onemo_test_get_repeate_alarm_info(unsigned char **cmd,int len);
 void onemo_test_adc(unsigned char **cmd,int len);
-void onemo_test_send_at(unsigned char **cmd,int len);
-void onemo_test_dump_at(unsigned char **cmd,int len);
 void onemo_test_reboot(unsigned char **cmd,int len);
 #ifdef  ONEMO_HTTP_SUPPORT
 void onemo_test_http(unsigned char **cmd,int len);

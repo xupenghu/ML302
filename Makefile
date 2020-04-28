@@ -15,7 +15,7 @@ CC := tools/private/gcc-arm-none-eabi/bin/arm-none-eabi-gcc
 CXX := tools/private/gcc-arm-none-eabi/bin/arm-none-eabi-g++
 BINMAKER := python tools/private/elf2flash.py
 CFLAGS :=  -std=gnu11   -mcpu=cortex-a5 -mtune=generic-armv7-a -mthumb -mfpu=neon-vfpv4 -mfloat-abi=hard -mno-unaligned-access -g -Os  -ffunction-sections -fdata-sections -w
-INC :=  -I'inc\os' -I'inc\apb' -I'inc\lwip' -Isrc -I. -Iinc  -I'inc\onemo'  -Iinc\mbedtls -Iinc\os\include -Iinc\cJSON -Iinc\os\include\sys
+INC :=  -I'inc\os' -I'inc\shell' -I'inc\apb' -I'inc\lwip' -Isrc -I. -Iinc  -I'inc\onemo'  -Iinc\mbedtls -Iinc\os\include -Iinc\cJSON -Iinc\os\include\sys
 
 LDFLAGS := -w -std=c++11 -fno-exceptions -fno-rtti -fno-threadsafe-statics 
 LDFLAGS +=   prebuilt/components/appstart/app_start.c.obj prebuilt/components/appstart/app_keypad.c.obj  
@@ -27,7 +27,7 @@ LDFLAGS +=prebuilt/libfsmount.a prebuilt/libsffs.a prebuilt/libbdev.a prebuilt/l
 LDFLAGS +=prebuilt/components/cmd_engine.o
 
 
-SRC_DIRS := src
+SRC_DIRS := src src/shell
 
 ifeq ($(onemo_fota_on),y)
 CFLAGS += -DONEMO_FOTA_SUPPORT
