@@ -3,7 +3,6 @@
 
 # Object files
 *.ko
-*.obj
 *.elf
 
 # Linker output
@@ -46,3 +45,5 @@ modules.order
 Module.symvers
 Mkfile.old
 dkms.conf
+/tools
+/prebuilt
