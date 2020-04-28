@@ -45,5 +45,5 @@ modules.order
 Module.symvers
 Mkfile.old
 dkms.conf
-/tools
-/prebuilt
+./tools
+./prebuilt

@@ -1,0 +1,50 @@
+OUTPUT_FORMAT("elf32-littlearm", "elf32-littlearm", "elf32-littlearm")
+OUTPUT_ARCH(arm)
+ENTRY(Reset_Handler)
+EXTERN(Reset_Handler)
+MEMORY {
+    flash(rx): ORIGIN = 0x60000000 +0x10000 +0x40,
+               LENGTH = 0x330000 -0x40
+    ram(rwx): ORIGIN = 0x80000000 +0xC00000,
+               LENGTH = 0x400000
+    sram(rwx): ORIGIN = 0x800000 +0x100,
+               LENGTH = 0x1f00
+}
+SECTIONS {
+    .ttb : ALIGN(16384) {
+        *(.TTBL1)
+        *(.TTBL2)
+    } > ram
+    .entry : {
+        *(RESET)
+    } >flash
+    .sramboottext : { __sramboottext_start = .; *(.sramboottext .sramboottext.*) __sramboottext_end = .; . = ALIGN(0x20); __sramboottext_load_start = LOADADDR(.sramboottext); } >sram AT>flash
+    .sramtext : { __sramtext_start = .; *(VECTORS) *libhal.a:hal_spi_flash.*(.text .text.* .gnu.linkonce.t.* .rdata .rodata .rodata.* .gnu.linkonce.r.*) *libkernel.a:portASM.*(.text .text.* .gnu.linkonce.t.* .rdata .rodata .rodata.* .gnu.linkonce.r.*) *libkernel.a:port.*(.text .text.* .gnu.linkonce.t.* .rdata .rodata .rodata.* .gnu.linkonce.r.*) *libkernel.a:osi_irq.*(.text .text.* .gnu.linkonce.t.* .rdata .rodata .rodata.* .gnu.linkonce.r.*) *libkernel.a:osi_profile.*(.text .text.* .gnu.linkonce.t.* .rdata .rodata .rodata.* .gnu.linkonce.r.*) *(.sramtext .sramtext.*) __sramtext_end = .; . = ALIGN(0x20); __sramtext_load_start = LOADADDR(.sramtext); } >sram AT>flash
+    .ramtext : { __ramtext_start = .; *libdriver.a:drv_spi_flash.*(.text .text.* .gnu.linkonce.t.* .rdata .rodata .rodata.* .gnu.linkonce.r.*) *(.ramtext .ramtext.*) __ramtext_end = .; . = ALIGN(0x20); __ramtext_load_start = LOADADDR(.ramtext); } >ram AT>flash
+    .init_array : { __init_array_start = .; KEEP(*(.init_array*)) __init_array_end = .; . = ALIGN(0x20); __init_array_load_start = LOADADDR(.init_array); } > flash
+    .text : { __text_start = .; *(.text .text.* .gnu.linkonce.t.* .rdata .rodata .rodata.* .gnu.linkonce.r.*) KEEP(*(.rokeep)) __text_end = .; . = ALIGN(0x20); __text_load_start = LOADADDR(.text); } > flash
+    .sramdata : { __sramdata_start = .; *(.sramdata .sramdata.*) __sramdata_end = .; . = ALIGN(0x20); __sramdata_load_start = LOADADDR(.sramdata); } > sram AT>flash
+    .data : { __data_start = .; *(.data .data.* .gnu.linkonce.d.*) KEEP(*(.rwkeep)) __data_end = .; . = ALIGN(0x20); __data_load_start = LOADADDR(.data); } > ram AT>flash
+    .srambss : { __srambss_start = .; *(.srambss .srambss.*) __srambss_end = .; . = ALIGN(0x20); __srambss_load_start = LOADADDR(.srambss); } >sram
+    .bss : { __bss_start = .; *(.bss .bss.* COMMON .scommon .sbss .sbss.* .sbss2 .sbss2.* .gnu.linkonce.b.*) __bss_end = .; . = ALIGN(0x20); __bss_load_start = LOADADDR(.bss); } >ram
+    __flash_start = ORIGIN(flash);
+    __flash_end = __data_load_start + SIZEOF(.data);
+    __stack_top = ORIGIN(sram) + LENGTH(sram);
+    __fiq_stack_top = __stack_top - 0x800;
+    __irq_stack_top = __stack_top - 0x0;
+    __svc_stack_top = __stack_top - 0x200;
+    __abt_stack_top = __stack_top - 0x800;
+    __und_stack_top = __stack_top - 0x800;
+    __sys_stack_top = __stack_top - 0x800;
+    __stack_bottom = __stack_top - 0xc00;
+    __blue_screen_end = __und_stack_top;
+    ASSERT(__stack_bottom > __srambss_end, "SRAM overflow")
+    __heap_start = __bss_end;
+    __heap_end = ORIGIN(ram) + LENGTH(ram);
+    .comment 0 : { *(.comment) }
+    /DISCARD/ : { *(.dynstr*) }
+    /DISCARD/ : { *(.dynamic*) }
+    /DISCARD/ : { *(.plt*) }
+    /DISCARD/ : { *(.interp*) }
+    /DISCARD/ : { *(.gnu*) }
+}
